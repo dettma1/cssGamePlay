@@ -2,7 +2,7 @@
 <html lang = "en">
   <head>
     <!--Browser tab-->
-    <link rel=icon href="resources/img/mt.jpg"  type="image/png">
+    <link rel=icon href=""  type="image/png">
     <title>Hannah Dettmann</title>
     <!--Meta ish-->
     <meta charset="utf-8">
@@ -46,30 +46,6 @@
           </script>
           <!-- Move Mermaid Function -->
           <script>
-
-            function checkMermaid() {
-              var element = document.getElementById("image1");
-              var newElement = document.getElementById("image2");
-              if (parseInt(element.style.left) > 180 && parseInt(element.style.left) < 250 ){
-                if (parseInt(element.style.top) > 0 && parseInt(element.style.top) < 30 ){
-                  var canvas = document.getElementById("viewport2");
-                  var ctx = canvas.getContext('2d');
-                  canvas.style.background="#1E596A";
-                  
-                }
-              }
-
-              if (parseInt(element.style.left) > 745 && parseInt(element.style.left) < 780 ){
-                if (parseInt(element.style.top) > 300 && parseInt(element.style.top) < 360 ){
-                  var canvas = document.getElementById("viewport2");
-                  var ctx = canvas.getContext('2d');
-                  canvas.style.background="#9F3B30";
-                  alert("You have successfully slain your enemies. The water is now warm with their blood.");
-                  element.style.left = '500px';
-                  newElement.style.left = '500px';
-                }
-              }
-            }
 
             function leftArrowPressed() {
             var element = document.getElementById("image2")
@@ -142,7 +118,7 @@
           window.addEventListener('keydown', moveSelection);
         }
 
-        function drawCircles(){
+        /*function drawCircles(){
           var canvas = document.getElementById('viewport2');
           var context = canvas.getContext('2d');
           context.beginPath();
@@ -156,7 +132,7 @@
           context.fillStyle = '#9F3B30';
           context.fill();
           context.stroke();
-        }
+        }*/
 
         function updateHeight(){
           var height = document.getElementById("mermaidHeight").value;
@@ -180,7 +156,8 @@
           <canvas id="viewport2" onload="docReady()" onkeydown="" onkeyup="" bgcolor='white' height="400px" width="400px"></canvas>
           <!--<img src="img/coral.jpg"  style="position:absolute;left:0; top:0;" width="auto"> -->
           <img data-toggle="modal" data-target="#mermaidModal" id="image1" src="img/mermaid.png"  style="position:absolute;left:0; top:0;" height="200px" width="auto">
-          <img data-toggle="modal" data-target="#mermaidModal" onload="drawCircles()" id="image2" src="img/mermaid_sm_right.png" style="position:absolute;left:0; top:0; visibility: hidden;" height="200px" width="auto">
+          <img data-toggle="modal" data-target="#mermaidModal"  id="image2" src="img/mermaid_sm_right.png" style="position:absolute;left:0; top:0; visibility: hidden;" height="200px" width="auto">
+          <img  id="manatee" src="img/manatee.png" style="position:absolute;left:660px; top:255px; visibility: visible;" height="200px" width="auto">
         </div>
       </div>
       <br>
