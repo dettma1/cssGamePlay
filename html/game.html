@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <!--Browser tab-->
+    <link rel=icon href="resources/img/mt.jpg"  type="image/png">
+    <title>Hannah Dettmann</title>
+    <!--Meta ish-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Hannah Dettmann">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!--Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Lato|Righteous" rel="stylesheet">
+    <!--Custom styles-->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+  </head>
+
+<section id="section_three">
+      <div class="container">
+        <div class="row game_title">
+          <div class="col-12">
+            <h1 class="text-center info_title" style="margin-top: 50px;">CSS Adventure</h1>
+          </div>
+          <br>
+        </div>
+        <div class="row" style="margin-top: 30px;">
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="img/mermaid.png" alt="Mermaid Image">
+            <div class="card-body">
+              <h5 class="card-title">Characters</h5>
+              <p class="card-text"> I wanted the main characters to be fun, somewhat quirky, but also something girls could identify with. I choose a mermaid and a manatee as the two main characters to play as for some variety. </p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <script>
+              function make_base()
+              {
+                var canvas = document.getElementById('viewport'),
+                context = canvas.getContext('2d');
+                base_image = new Image();
+                base_image.src = 'img/mermaid.png';
+                context.drawImage(base_image, -200, -200);
+              }
+          </script>
+          <!-- Move Mermaid Function -->
+          <script>
+
+            function leftArrowPressed() {
+            var element = document.getElementById("image1");
+            if(parseInt(element.style.left) <= -5){ return; }
+            element.style.left = parseInt(element.style.left) - 5 + 'px';
+            }
+
+            function rightArrowPressed() {
+            var element = document.getElementById("image1");
+            if(parseInt(element.style.left) >= 565){ return; }
+            element.style.left = parseInt(element.style.left) + 5 + 'px';
+
+            }
+
+            function upArrowPressed() {
+            var element = document.getElementById("image1");
+            if(parseInt(element.style.top) <= -5){ return; }
+            element.style.top = parseInt(element.style.top) - 5 + 'px';
+            }
+
+            function downArrowPressed() {
+            var element = document.getElementById("image1");
+            if(parseInt(element.style.top) >= 400){ return; }
+            element.style.top = parseInt(element.style.top) + 5 + 'px';
+            }
+
+            function moveSelection(evt) {
+                switch (evt.keyCode) {
+                    case 65:
+                    leftArrowPressed();
+                    break;
+                    case 68:
+                    rightArrowPressed();
+                    break;
+                    case 87:
+                    upArrowPressed();
+                    break;
+                    case 83:
+                    downArrowPressed();
+                    break;
+                    }
+                };
+
+        function docReady()
+        {
+          
+          window.addEventListener('keydown', moveSelection);
+        }
+
+  </script>
+          <canvas id="viewport" onkeydown="" onkeyup="" bgcolor='white' height="600px" width="500px"></canvas>
+          <!--<img src="img/coral.jpg"  style="position:absolute;left:0; top:0;" width="auto"> -->
+          <img id="image1" src="img/mermaid.png" onclick="docReady()" style="position:absolute;left:0; top:0;" height="200px" width="auto">
+           <p class="text-center"> Click on the Mermaid and use the WASD keys to control it!</p>
+        </div>
+      </div>
+      <br>
+  </section>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src = "resources/js/main.js"></script>
+  </body>
+</html>
