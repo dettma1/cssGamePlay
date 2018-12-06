@@ -47,16 +47,76 @@
           <!-- Move Mermaid Function -->
           <script>
 
+          	function gameOver(){
+              var par = document.getElementById("party");
+                
+                if(par.style.visibility == 'visible'){
+                  return;
+                }
+              var fish = document.getElementById('fish_blue');
+              var height = parseInt(fish.style.top);
+              var right = parseInt(fish.style.left);
+
+              if( 125 < height && height < 400){
+                if( 550 < right && right < 930){
+                  var par = document.getElementById("party");
+                //par.style.visibility = 'visible';
+                alert("YOU WON!");
+                var btn = document.getElementById("restart_button");
+                btn.style.visibility = "visible";
+
+                } 
+              }
+            }
+
+
+          	function createFish(){
+          		var fish = document.getElementById('fish_blue');
+          		fish.style.visibility = 'visible';
+          	}
+
+            function callAlert(){
+              var mermaid = document.getElementById("image1");
+              var x = parseInt(mermaid.style.top);
+              var y = parseInt(mermaid.style.left);
+
+              if( y > 550 && y < 930){
+                if(x > 125 && x < 330){
+                  $('#manateeModal').modal('toggle');
+                  console.log("manatee reached");
+                }
+              } else {
+                alert("The manatee is quite old. His visibility is shown with the black box.");
+                var man = document.getElementById("manatee");
+                man.style.border = "solid black";
+              }
+              
+            }
+          	function man_op_two_sel() {
+          		var h = document.getElementById("man_head");
+              console.log(h.innerHTML)
+              if( h.innerHTML != "I'm looking for my fish friend. Have you seen it?"){
+                $('#manateeModal').modal('toggle');
+              }
+          		h.innerHTML = "Here's a picture. I hope you can find him.";
+          		var img = document.getElementById("fish_friend");
+          		img.style.visibility = "visible";
+          		document.getElementById("man_op_two").innerHTML = 'I will try my best!';
+          		createFish();
+          		return;
+          	}
+
+
             function leftArrowPressed() {
             var element = document.getElementById("image2")
             var newElement = document.getElementById("image1");
             if(parseInt(element.style.left) <= -5){ return; }
             element.style.visibility = 'hidden';
             newElement.style.visibility = 'visible';
-            element.style.left = parseInt(element.style.left) - 5 + 'px';
+            element.style.left = parseInt(element.style.left) - 7 + 'px';
             newElement.style.left = element.style.left;
             newElement.style.top = element.style.top;
-            checkMermaid();
+            
             
 
             }
@@ -67,10 +127,10 @@
             if(parseInt(element.style.left) >= 965){ return; }
             element.style.visibility = 'hidden';
             newElement.style.visibility = 'visible';
-            element.style.left = parseInt(element.style.left) + 5 + 'px';
+            element.style.left = parseInt(element.style.left) + 7 + 'px';
             newElement.style.left = element.style.left;
             newElement.style.top = element.style.top;
-            checkMermaid();
+            
             
             }
 
@@ -78,21 +138,20 @@
             var element = document.getElementById("image1");
             var newElement = document.getElementById("image2")
             if(parseInt(element.style.top) <= -5){ return; }
-            element.style.top = parseInt(element.style.top) - 5 + 'px';
+            element.style.top = parseInt(element.style.top) - 7 + 'px';
             newElement.style.left = element.style.left;
             newElement.style.top = element.style.top;
-            checkMermaid();
+            
             }
 
             function downArrowPressed() {
             var element = document.getElementById("image1");
             var newElement = document.getElementById("image2")
             if(parseInt(element.style.top) >= 400){ return; }
-            element.style.top = parseInt(element.style.top) + 5 + 'px';
-            newElement.style.top = parseInt(newElement.style.top) + 5 + 'px';
+            element.style.top = parseInt(element.style.top) + 7 + 'px';
             newElement.style.left = element.style.left;
             newElement.style.top = element.style.top;
-            checkMermaid();
+            
             }
 
             function moveSelection(evt) {
@@ -116,6 +175,7 @@
         {
            
           window.addEventListener('keydown', moveSelection);
+          alert("Welcome to CSS Adventure! You can use the arrow keys to move the mermaid and click on objects to interact with them!");
         }
 
         /*function drawCircles(){
@@ -150,20 +210,50 @@
 
         }
 
+        function updateFishPos(){
+
+          gameOver();
+          var top = document.getElementById("inputTop").value;
+          var right = document.getElementById("inputRight").value;
+          var warn = document.getElementById("oobWarning");
+          warn.style.visibility = "hidden";
+          if(parseInt(top) > 500 || parseInt(top) < 0){
+            warn.style.visibility = "visible";
+            return;
+          }
+          if(parseInt(right) < 0 || parseInt(right) > 900){
+            warn.style.visibility = "visible";
+            return;
+          }
+
+
+          var element = document.getElementById("fish_blue");
+          element.style.top = parseInt(top) + 'px';
+          element.style.left = parseInt(right) + 'px';
+          gameOver();
+
+        }
+
         docReady();
 
   </script>
           <canvas id="viewport2" onload="docReady()" onkeydown="" onkeyup="" bgcolor='white' height="400px" width="400px"></canvas>
-          <!--<img src="img/coral.jpg"  style="position:absolute;left:0; top:0;" width="auto"> -->
+          <!-- images -->
           <img data-toggle="modal" data-target="#mermaidModal" id="image1" src="img/mermaid.png"  style="position:absolute;left:0; top:0;" height="200px" width="auto">
           <img data-toggle="modal" data-target="#mermaidModal"  id="image2" src="img/mermaid_sm_right.png" style="position:absolute;left:0; top:0; visibility: hidden;" height="200px" width="auto">
-          <img  id="manatee" src="img/manatee.png" style="position:absolute;left:660px; top:255px; visibility: visible;" height="200px" width="auto">
+          <img onclick="callAlert()" id="manatee" src="img/manatee.png" style="position:absolute;left:660px; top:255px; visibility: visible;" height="200px" width="auto">
+          <img data-toggle="modal" data-target="#fishModal" id="fish_blue" src="img/baby_blue.png" style="position:absolute;left:35px; top:400px; visibility: hidden;" height="100px" width="auto">
+          <img id="party" src="img/party.gif" onclick="location.reload()" style="position:absolute;left:0px; top:0px; visibility: hidden;" height="600px" width="1140px">
+          <button id="restart_button" class="btn-primary" onclick="location.reload()" style="visibility: hidden; position: absolute; left: 200px; top: 200px;">Restart</button>
+
+
+
         </div>
       </div>
       <br>
   </section>
 
-  <!-- Modal -->
+  <!-- MERMAID Modal -->
 <div class="modal fade" id="mermaidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -174,11 +264,12 @@
         </button>
       </div>
       <div class="modal-body">
-       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Height: </span>
+        <p>You can change the height of the mermaid but it currently makes the game harder to play</p>
+        <div class="form-group row">
+        <label for="inputTop" class="col-sm-2 col-form-label">Height</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="mermaidHeight" placeholder="200">
         </div>
-        <input type="text" id="mermaidHeight" class="form-control" placeholder= '200' aria-label="Height" aria-describedby="basic-addon1">
       </div>
       <div class="alert alert-danger"  id="danterWarning" style="visibility: hidden" role="alert">
         The height should not exceed 500px!
@@ -192,10 +283,65 @@
   </div>
 </div>
 
+<!-- FISH Modal -->
+<div class="modal fade" id="fishModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Blue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> The Top and Right specificy the location of the fish on the screen.</p>
+       <div class="form-group row">
+        <label for="inputTop" class="col-sm-2 col-form-label">Top</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputTop" placeholder="400">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputRight" class="col-sm-2 col-form-label">Right</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputRight" placeholder="35">
+        </div>
+      </div>
+        <div class="alert alert-danger"  id="oobWarning" style="visibility: hidden" role="alert">
+          The fish should stay in the game! It's out of bounds!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateFishPos()" data-dismiss="modal" >Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Manatee Modal -->
+<div class="modal fade" id="manateeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Manatee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<div class="modal-body">
+  <h5 id="man_head">I'm looking for my fish friend. Have you seen it?</h5>
+  <img id="fish_friend" src="img/baby_blue.png" style="visibility: hidden; height: 100px;">
+  <br>
+  <button id="man_op_two" style="visibility: visible" class="btn btn-secondary" onclick="man_op_two_sel()">I don't think so.. what does it look like?</button>
+</div>
+
+<!-- end modal of manatee -->
+
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src = "resources/js/main.js"></script>
+    <script src = "../js/boostrap.min.js"></script>
   </body>
 </html>
