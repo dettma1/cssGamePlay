@@ -18,6 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Lato|Righteous" rel="stylesheet">
     <!--Custom styles-->
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -26,13 +27,11 @@
 <section id="section_three">
       <div class="container">
         <div class="row game_title">
-          <div class="col-12">
-            <h1 class="text-center info_title" style="margin-top: 30px;">CSS Adventure</h1>
+          <div class="col-10">
+            <h1 id="winner" class="text-center info_title" style="padding-top: 5px;">CSS Adventure</h1>
           </div>
           <br>
         </div>
-        <div class="row" style="margin-top: 15px;">
-        <div class="col-lg-10">
           <script>
               function make_base()
               {
@@ -48,22 +47,26 @@
           <script>
 
           	function gameOver(){
-              var par = document.getElementById("party");
-                
-                if(par.style.visibility == 'visible'){
-                  return;
-                }
               var fish = document.getElementById('fish_blue');
-              var height = parseInt(fish.style.top);
-              var right = parseInt(fish.style.left);
+              var y = parseInt(fish.style.top);
+              var x = parseInt(fish.style.left);
 
-              if( 125 < height && height < 400){
-                if( 550 < right && right < 930){
-                  var par = document.getElementById("party");
-                //par.style.visibility = 'visible';
-                alert("YOU WON!");
-                var btn = document.getElementById("restart_button");
-                btn.style.visibility = "visible";
+              var man = document.getElementById("manatee");
+              var top = parseInt(man.style.top);
+              var right = parseInt(man.style.left);
+
+              if( y > (top - 110) && y < (top + 270)){
+                if(x > (right - 130) && x < (right + 345)){
+                document.getElementById("winner").innerHTML = "YOU WIN!";
+                console.log("winner");
+
+            var party = document.getElementById("party_man");
+            party.style.visibility = 'visible';
+            party.style.left = parseInt(man.style.left) + 7 + 'px' ;
+            party.style.top  = parseInt(man.style.top) - 29 + 'px';
+
+            man.style.visibility = 'hidden';
+               
 
                 } 
               }
@@ -73,20 +76,27 @@
           	function createFish(){
           		var fish = document.getElementById('fish_blue');
           		fish.style.visibility = 'visible';
+
+              var fish_puff = document.getElementById('puff');
+              fish_puff.style.visibility = 'visible';
           	}
 
             function callAlert(){
               var mermaid = document.getElementById("image1");
-              var x = parseInt(mermaid.style.top);
-              var y = parseInt(mermaid.style.left);
+              var y = parseInt(mermaid.style.top);
+              var x = parseInt(mermaid.style.left);
 
-              if( y > 550 && y < 930){
-                if(x > 125 && x < 330){
+              var man = document.getElementById("manatee");
+              var top = parseInt(man.style.top);
+              var right = parseInt(man.style.left);
+
+              if( y > (top - 110) && y < (top + 270)){
+                if(x > (right - 130) && x < (right + 345)){
                   $('#manateeModal').modal('toggle');
                   console.log("manatee reached");
                 }
               } else {
-                alert("The manatee is quite old. His visibility is shown with the black box.");
+                $('#manateeModalSight').modal('toggle');
                 var man = document.getElementById("manatee");
                 man.style.border = "solid black";
               }
@@ -124,7 +134,7 @@
             function rightArrowPressed() {
             var element = document.getElementById("image1");
             var newElement = document.getElementById("image2")
-            if(parseInt(element.style.left) >= 965){ return; }
+            if(parseInt(element.style.left) >= 765){ return; }
             element.style.visibility = 'hidden';
             newElement.style.visibility = 'visible';
             element.style.left = parseInt(element.style.left) + 7 + 'px';
@@ -147,7 +157,7 @@
             function downArrowPressed() {
             var element = document.getElementById("image1");
             var newElement = document.getElementById("image2")
-            if(parseInt(element.style.top) >= 400){ return; }
+            if(parseInt(element.style.top) >= 375){ return; }
             element.style.top = parseInt(element.style.top) + 7 + 'px';
             newElement.style.left = element.style.left;
             newElement.style.top = element.style.top;
@@ -175,24 +185,24 @@
         {
            
           window.addEventListener('keydown', moveSelection);
-          alert("Welcome to CSS Adventure! You can use the arrow keys to move the mermaid and click on objects to interact with them!");
+          
         }
 
-        /*function drawCircles(){
-          var canvas = document.getElementById('viewport2');
-          var context = canvas.getContext('2d');
-          context.beginPath();
-          context.arc(100, 75, 30, 0, 2 * Math.PI);
-          context.fillStyle = '#1E596A';
-          context.fill();
-          context.stroke();
+        function moveManatee(){
+          var num = Math.floor(Math.random() * 600);
+          while(num < 50){
+            num = Math.floor(Math.random() * 600);
+          }
+          var man = document.getElementById("manatee");
+          man.style.left = parseInt(num) + 'px';
 
-          context.beginPath();
-          context.arc(300, 300, 30, 0, 2 * Math.PI);
-          context.fillStyle = '#9F3B30';
-          context.fill();
-          context.stroke();
-        }*/
+          num = 0;
+          while(num < 50){
+            num = Math.floor(Math.random() * 375);
+          }
+          man.style.top = parseInt(num) + 'px';
+        }
+
 
         function updateHeight(){
           var height = document.getElementById("mermaidHeight").value;
@@ -221,7 +231,7 @@
             warn.style.visibility = "visible";
             return;
           }
-          if(parseInt(right) < 0 || parseInt(right) > 900){
+          if(parseInt(right) < 0 || parseInt(right) > 800){
             warn.style.visibility = "visible";
             return;
           }
@@ -237,21 +247,64 @@
         docReady();
 
   </script>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-lg-10">
           <canvas id="viewport2" onload="docReady()" onkeydown="" onkeyup="" bgcolor='white' height="400px" width="400px"></canvas>
           <!-- images -->
+
+          <!--Meremaid-->
           <img data-toggle="modal" data-target="#mermaidModal" id="image1" src="img/mermaid.png"  style="position:absolute;left:0; top:0;" height="200px" width="auto">
           <img data-toggle="modal" data-target="#mermaidModal"  id="image2" src="img/mermaid_sm_right.png" style="position:absolute;left:0; top:0; visibility: hidden;" height="200px" width="auto">
-          <img onclick="callAlert()" id="manatee" src="img/manatee.png" style="position:absolute;left:660px; top:255px; visibility: visible;" height="200px" width="auto">
+          <!--manatee-->
+          <img onclick="callAlert()" onload="moveManatee()" id="manatee" src="img/manatee.png" style="position:absolute; visibility: visible;" height="200px" width="auto">
+          <img id="party_man" src="img/manateeKing.png" style="position:absolute; left:0; top:0; visibility: hidden;" height="200px" width="auto">
+
+          <!--fish-->
           <img data-toggle="modal" data-target="#fishModal" id="fish_blue" src="img/baby_blue.png" style="position:absolute;left:35px; top:400px; visibility: hidden;" height="100px" width="auto">
-          <img id="party" src="img/party.gif" onclick="location.reload()" style="position:absolute;left:0px; top:0px; visibility: hidden;" height="600px" width="1140px">
-          <button id="restart_button" class="btn-primary" onclick="location.reload()" style="visibility: hidden; position: absolute; left: 200px; top: 200px;">Restart</button>
+          <!--fish-puff-->
+          <img id="puff" src="img/pufferfish.png" style="position:absolute;left:600px; top:42px; visibility: hidden;" height="100px">
+        </div>
+        <div class="col-sm-2">
+          <button id="instructions" class="btn btn-primary btn-game" data-toggle="modal" data-target="#insructionModal" >Instructions</button>
+        </br>
+           <button id="restart_button" class="btn btn-primary btn-game" onclick="location.reload()" >Restart</button>
+           <br>
+           <a href="https://www.linkedin.com/in/jacob-smithburg-68a377143/">
+           <img id="jake" class="img rounded-circle" src="img/jake.jpg"></a>
+           <p class= "text-center caption"> Jacob Smithburg, Character Artist</p>
+      
+         <br>
+         <a href="https://dettma1.github.io/portfolio/">
+           <img id="hannah" class="img rounded-circle" src="img/hannah.jpg"></a>
+           <p class="text-center caption"> Hannah Dettmann, Developer</p>
 
-
-
+        </div>
         </div>
       </div>
       <br>
   </section>
+  <footer style="background-color: #d1ac48ad; height: 30px;">
+    <div class = "row">
+  </footer>
+
+  <!--Instructions Modal --> 
+  <div class="modal fade" id="insructionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Manatee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="modal-body">
+   <p>Welcome to CSS Adventure! You can use the arrow keys to move the mermaid around or click on objects to interact with them. Because mermaids are magical, you can change objects using their CSS properities.</p> 
+   </p>
+  </div>
+    </div>
+  </div>
+  </div>
+<!--end of instructions modal-->
 
   <!-- MERMAID Modal -->
 <div class="modal fade" id="mermaidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -264,7 +317,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>You can change the height of the mermaid but it currently makes the game harder to play</p>
+        <p>You can change the height of the mermaid but it currently makes the game harder to play. </p>
         <div class="form-group row">
         <label for="inputTop" class="col-sm-2 col-form-label">Height</label>
         <div class="col-sm-10">
@@ -276,8 +329,8 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateHeight()" data-dismiss="modal" >Save changes</button>
+        <button type="button" class="btn btn-modal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-modal" onclick="updateHeight()" data-dismiss="modal" >Save changes</button>
       </div>
     </div>
   </div>
@@ -294,7 +347,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p> The Top and Right specificy the location of the fish on the screen.</p>
+        <p> The Top and Left give the location of the fish. Try to change them.</p>
        <div class="form-group row">
         <label for="inputTop" class="col-sm-2 col-form-label">Top</label>
         <div class="col-sm-10">
@@ -302,7 +355,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="inputRight" class="col-sm-2 col-form-label">Right</label>
+        <label for="inputRight" class="col-sm-2 col-form-label">Left</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="inputRight" placeholder="35">
         </div>
@@ -312,8 +365,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateFishPos()" data-dismiss="modal" >Update</button>
+        <button type="button" class="btn btn-modal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-modal" onclick="updateFishPos()" data-dismiss="modal" >Update</button>
       </div>
     </div>
   </div>
@@ -333,8 +386,31 @@
   <h5 id="man_head">I'm looking for my fish friend. Have you seen it?</h5>
   <img id="fish_friend" src="img/baby_blue.png" style="visibility: hidden; height: 100px;">
   <br>
-  <button id="man_op_two" style="visibility: visible" class="btn btn-secondary" onclick="man_op_two_sel()">I don't think so.. what does it look like?</button>
+  <button id="man_op_two" style="visibility: visible" class="btn btn-modal" onclick="man_op_two_sel()">I don't think so.. what does it look like?</button>
 </div>
+</div>
+</div>
+</div>
+
+<!-- end modal of manatee -->
+
+<!--Manatee Modal -->
+<div class="modal fade" id="manateeModalSight" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Manatee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<div class="modal-body">
+ <p>The manatee is very old and has limited visibility. Its range of vision is shown with the black box.</p>
+</div>
+</div>
+</div>
+</div>
+
 
 <!-- end modal of manatee -->
 
