@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang = "en" style="height:100%">
   <head>
     <!--Browser tab-->
     <link rel=icon href="img/pufferfish.png"  type="image/png">
@@ -23,7 +23,7 @@
     <!--Custom styles-->
     <link href="css/style.css" rel="stylesheet" type="text/css">
   </head>
-
+<body>
 <section id="section_three">
       <div class="container">
         <div class="row game_title">
@@ -46,6 +46,14 @@
           <!-- Move Mermaid Function -->
           <script>
 
+            function winner(){
+              $('#winModal').modal('toggle');
+            }
+
+            function updateKing(){
+                document.getElementById("win_modal_text").innerHTML = "Something bad is happening! For thousands of years our kingdom has lived peacefully. But now, a submarine of explorers puts our safety at risk. I have reason to believe if the humans find us, they will put us in zoos. I hope I can count you on you help protect our kingdom!";
+            }
+
           	function gameOver(){
               var fish = document.getElementById('fish_blue');
               var y = parseInt(fish.style.top);
@@ -66,6 +74,8 @@
             party.style.top  = parseInt(man.style.top) - 29 + 'px';
 
             man.style.visibility = 'hidden';
+
+            winner();
                
 
                 } 
@@ -264,9 +274,9 @@
           <img id="puff" src="img/pufferfish.png" style="position:absolute;left:600px; top:42px; visibility: hidden;" height="100px">
         </div>
         <div class="col-sm-2">
-          <button id="instructions" class="btn btn-primary btn-game" data-toggle="modal" data-target="#insructionModal" >Instructions</button>
+          <button id="instructions" class="btn  btn-game" data-toggle="modal" data-target="#insructionModal" >Instructions</button>
         </br>
-           <button id="restart_button" class="btn btn-primary btn-game" onclick="location.reload()" >Restart</button>
+           <button id="restart_button" class="btn btn-game" onclick="location.reload()" >Restart</button>
            <br>
            <a href="https://www.linkedin.com/in/jacob-smithburg-68a377143/">
            <img id="jake" class="img rounded-circle" src="img/jake.jpg"></a>
@@ -282,16 +292,14 @@
       </div>
       <br>
   </section>
-  <footer style="background-color: #d1ac48ad; height: 30px;">
-    <div class = "row">
-  </footer>
+</body>
 
   <!--Instructions Modal --> 
   <div class="modal fade" id="insructionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Manatee</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Instructions</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -304,6 +312,28 @@
   </div>
   </div>
 <!--end of instructions modal-->
+
+ <!--You Win Modal --> 
+  <div class="modal fade" id="winModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You Win!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="modal-body" id="win_modal_text">
+   <p>"Thank you so much!", the manatee squeaks. "My fish friend just got my crown back from the dry-cleaners."</p>
+   <br>
+   <p> As the manatee puts his crown on, your realize you are in the presence of the King. Suddenly, you remember the King only appears when something bad is happening. </p>
+   <button class="btn btn-game" onclick="updateKing()" id="win_one" style="visibility: visible;">I thought the King only appears when something bad was happening!</button>  
+   <button class="btn btn-game" onclick="updateKing()" id="win_two" style="visibility: visible;">What's going on?</button> 
+  </div>
+    </div>
+  </div>
+  </div>
+<!--end of you win modal-->
 
   <!-- MERMAID Modal -->
 <div class="modal fade" id="mermaidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -409,6 +439,8 @@
 </div>
 </div>
 </div>
+</div>
+
 
 
 <!-- end modal of manatee -->
